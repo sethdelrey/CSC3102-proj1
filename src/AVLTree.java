@@ -1,18 +1,15 @@
 public class AVLTree {
     private class Node {
-        public int key;
-        public int size;
-        public int height;
-        public int balanceFactor;
-        public Node leftChild;
-        public Node rightChild;
-        public Node parent;
+        public int key, height, size, balanceFactor;
+        public Node leftChild, rightChild, parent;
+
         //public Comparable data;
 
         public Node(int _key, Node _parent) {
             key = _key;
             parent = _parent;
         }
+
         public void insert(int _key) {
             if (key > _key) {
                 // Add to the left
@@ -90,16 +87,16 @@ public class AVLTree {
     }
 
     public Node predessor(int _key) {
-
+        //wouldn't we want to just return parent here?
         return new Node(_key, null);
     }
 
     public void miniumum() {
-
+        //go to leftmost child
     }
 
     public void maximum() {
-
+        //go to rightmost child
     }
 
     public void inOrder() {
