@@ -1,5 +1,5 @@
 public class AVLTree2 {
-    class Node {
+    private class Node {
         int key, height;
         Node left, right;
 
@@ -7,6 +7,8 @@ public class AVLTree2 {
             key = d;
             height = 1;
         }
+
+        Node
     }
 
     //AVL tree class
