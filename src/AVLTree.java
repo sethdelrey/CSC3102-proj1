@@ -117,7 +117,6 @@ public class AVLTree {
     }
 
     public Node predessor(Node x) {
-        //wouldn't we want to just return parent here?
         // This is what he had in the slides?
         if (x.leftChild != null) {
             return maximum(x.leftChild);
@@ -165,5 +164,19 @@ public class AVLTree {
         }
 
         return retVal;
+    }
+
+    public int height(Node x) {
+        //working on this
+        if (x == null)
+            return 0;
+        return x.height;
+    }
+
+    public int balanceFactor(Node x) {
+        //finds balance factor
+        if (x == null)
+            return 0;
+        return height(x.leftChild) - height(x.rightChild);
     }
 }

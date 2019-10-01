@@ -1,3 +1,4 @@
+//basically just using this to brainstorm
 public class AVLTree2 {
     private class Node {
         int key, height;
