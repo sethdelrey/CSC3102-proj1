@@ -1,46 +1,54 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
         AVLTree A = new AVLTree();
         try (Scanner fin = new Scanner(new File("AVLtree-input.txt"))) {
+            FileWriter write = new FileWriter(new File("output.txt"));
             while (fin.hasNextLine()) {
                 Scanner sin  = new Scanner(fin.nextLine());
                 sin.useDelimiter(" ");
                 String choice = sin.next();
+                String str = "";
                 switch (choice) {
                     case "IN":
                         A.insert(sin.nextInt());
                         break;
                     case "MI":
-                        A.miniumum();
+                        str = String.format("%-8d//MI%n",A.getKey(A.miniumum(A.getRoot())));
                         break;
                     case "MA":
-                        A.maximum();
+                        str = String.format("%-8d//MA%n",A.getKey(A.maximum(A.getRoot())));
                         break;
                     case "PR":
-                        A.predessor(sin.nextInt());
+                        int val = sin.nextInt();
+                        str = String.format("%-8d//PR %d%n", A.predessor(A.search(A.getRoot(), val)), val);
                         break;
                     case "SR":
-                        A.search(sin.nextInt());
+                        A.search(A.getRoot(), sin.nextInt());
                         break;
                     case "SC":
-                        A.successor(sin.nextInt());
+                        A.successor(A.search(A.getRoot(), sin.nextInt()));
                         break;
                     case "RA":
                         A.rank(sin.nextInt());
                         break;
                     case "TR":
-                        A.inOrder();
+                        A.inOrder(A.getRoot());
                         break;
                 }
+                write.write(str);
             }
+            write.close();
         }
         catch (FileNotFoundException ex) {
             System.out.println("There was no file found with the name AVLtree-input.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

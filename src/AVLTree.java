@@ -8,9 +8,12 @@ public class AVLTree {
         public Node(int _key, Node _parent) {
             key = _key;
             parent = _parent;
+            height = 1;
+            balanceFactor = 0;
         }
 
         public void insert(int _key) {
+            // TODO: Add updates to height and balance factor and rotation stuff.
             if (key > _key) {
                 // Add to the left
                 if (leftChild != null) {
@@ -41,6 +44,14 @@ public class AVLTree {
         root = new Node(_key, null);
     }
 
+    public Node getRoot() {
+        return root;
+    }
+
+    public int getKey(Node x) {
+        return x.key;
+    }
+
     public void insert(int _key) {
         if (root != null) {
             root.insert(_key);
@@ -68,14 +79,33 @@ public class AVLTree {
 //        }
     }
 
-    public Node search(int _key) {
-
-        return new Node(_key, null);
+    public Node search(Node x, int k) {
+        if (x == null) {
+            return null;
+        }
+        if (x.key == k) {
+            return x;
+        }
+        if (x.key > k) {
+            return search(x.leftChild, k);
+        }
+        return search(x.rightChild, k);
     }
 
-    public Node successor(int _key) {
+    public Node successor(Node x) {
+        if (x.rightChild != null) {
+            return miniumum(x.rightChild);
+        }
 
-        return new Node(_key, null);
+        Node y = x.parent;
+
+        while (y != null && x == y.rightChild) {
+            x = y;
+            y = y.parent;
+        }
+
+        return y;
+        //return new Node(_key, null);
     }
 
     public Node select(int i) {
@@ -86,20 +116,54 @@ public class AVLTree {
 
     }
 
-    public Node predessor(int _key) {
+    public Node predessor(Node x) {
         //wouldn't we want to just return parent here?
-        return new Node(_key, null);
+        // This is what he had in the slides?
+        if (x.leftChild != null) {
+            return maximum(x.leftChild);
+        }
+
+        Node y = x.parent;
+        while (y != null && x == y.leftChild) {
+            x = y;
+            y = y.parent;
+        }
+        return y;
     }
 
-    public void miniumum() {
+    public Node miniumum(Node x) {
         //go to leftmost child
+        while (x.leftChild != null) {
+            x = x.leftChild;
+        }
+        return x;
     }
 
-    public void maximum() {
+    public Node maximum(Node x) {
         //go to rightmost child
+        while (x.rightChild != null) {
+            x = x.rightChild;
+        }
+        return x;
     }
 
-    public void inOrder() {
+    public String inOrder(Node x) {
+        // visit left side, root, then right side
+        String retVal = "";
+        if (x == null) {
+            return "";
+        }
 
+        if (x.leftChild != null) {
+            retVal += inOrder(x.leftChild);
+        }
+
+        retVal += x.key + ", ";
+
+        if (x.rightChild != null) {
+            retVal += inOrder(x.rightChild);
+        }
+
+        return retVal;
     }
 }

@@ -8,7 +8,7 @@ public class AVLTree2 {
             height = 1;
         }
 
-        Node
+
     }
 
     //AVL tree class
