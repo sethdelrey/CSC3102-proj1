@@ -109,12 +109,37 @@ public class AVLTree {
     }
 
     public Node select(int i) {
+        //working on how to do this without given node
+        //want to use root but must be able to change
+        return recurseSelect(root, i);
+
         return new Node(i, null);
     }
 
-    public void rank(int _key) {
-
+    private Node recurseSelect(Node x, int i) {
+        if (x == null)
+            //throw exception or just give statement?
+            System.out.print("Error: no item found.");
+        if (x.leftChild.size >= 1)
+            return recurseSelect(x.leftChild, i);
+        if (x.leftChild.size + 1 == i)
+            return x;
+        return recurseSelect(x.rightChild, i-1-x.leftChild.size);
     }
+
+    public int rank(int _key) {
+        //he wants it done by inorder traversal but i dont
+        // think it's necessary
+        return new int recurseRank(root, _key);
+    }
+
+    private int recurseRank(Node x, int k) {
+        if (x == null)
+            return 0;
+        if (k < x.key)
+            return recurseRank(x.leftChild,k);
+    }
+
 
     public Node predessor(Node x) {
         // This is what he had in the slides?
