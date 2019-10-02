@@ -24,26 +24,26 @@ public class MainClass {
                         A.insert(val);
                         break;
                     case "MI":
-                        str = String.format("%-8d//MI%n", A.getKey(A.miniumum(A.getRoot())));
+                        str = String.format("%-8d%n", A.getKey(A.miniumum(A.getRoot())));
                         break;
                     case "MA":
-                        str = String.format("%-8d//MA%n", A.getKey(A.maximum(A.getRoot())));
+                        str = String.format("%-8d%n", A.getKey(A.maximum(A.getRoot())));
                         break;
                     case "PR":
-                        str = String.format("%-8d//PR %d%n", A.predecessor(A.search(A.getRoot(), val)), val);
+                        str = String.format("%-8d%n", A.predecessor(A.search(A.getRoot(), val)));
                         break;
                     case "SR":
-                        str = String.format("%-8d//SR%n", A.search(val), val);
+                        str = String.format("%-8d%n", A.search(val));
                         break;
                     case "SC":
-                        str = String.format("%-8d//SC %d%n", A.successor(val), val);
+                        str = String.format("%-8d%n", A.successor(val));
                         break;
                     case "RA":
-                        str = String.format("%-8d//RA %d%n", A.rank(val),val);
+                        str = String.format("%-8d%n", A.rank(val));
                         A.rank(sin.nextInt());
                         break;
                     case "TR":
-                        str = A.inOrder() + "     //TR";
+                        str = A.inOrder();
                         break;
                 }
                 write.write(str);

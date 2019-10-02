@@ -175,6 +175,7 @@ public class AVLTree {
         }
 
     }
+
     private Node root;
 
     public AVLTree() {
@@ -221,10 +222,10 @@ public class AVLTree {
     }
 
     public int search(int _key) {
-        return search(root, _key).key;
+        return recurseSearch(root, _key).key;
     }
 
-    public Node search(Node x, int k) {
+    public Node recurseSearch(Node x, int k) {
         if (x == null) {
             return null;
         }
@@ -232,13 +233,13 @@ public class AVLTree {
             return x;
         }
         if (x.key > k) {
-            return search(x.leftChild, k);
+            return recurseSelect(x.leftChild, k);
         }
-        return search(x.rightChild, k);
+        return recurseSelect(x.rightChild, k);
     }
 
     public int successor(int _key) {
-        return successor(search(root, _key)).key;
+        return successor(recurseSearch(root, _key)).key;
     }
 
     public Node successor(Node x) {
@@ -286,6 +287,9 @@ public class AVLTree {
         return x.leftChild.size + 1 + recurseRank(x.rightChild,k);
     }
 
+    public int predecessor(int _key) {
+        return predecessor(recurseSearch(root, _key)).key;
+    }
 
     public Node predecessor(Node x) {
         // This is what he had in the slides?
