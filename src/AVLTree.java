@@ -36,7 +36,7 @@ public class AVLTree {
 //                    rightChild = new Node(_key, this);
 //                }
 //            }
-//        }
+        }
 
     }
     private Node root;
