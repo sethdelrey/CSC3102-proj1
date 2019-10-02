@@ -22,7 +22,26 @@ public class AVLTree {
             x.height = 1 + max(x.leftChild, x.rightChild);
             y.height = 1 + max(y.leftChild, x.rightChild);
         }
-        
+
+        public void leftRotate(Node x) {
+            Node y = x.rightChild;
+            transplant(y,y.leftChild);
+            transplant(x,y);
+            x.leftChild = y;
+            y.parent = x;
+            x.height = 1 + max(x.leftChild, x.rightChild);
+            y.height = 1 + max(y.leftChild, x.rightChild);
+        }
+
+        public void leftRightRotate(Node x) {
+            leftRotate(x.leftChild);
+            rightRotate(x);
+        }
+
+        public void rightLeftRotate(Node x) {
+            rightRotate(x.rightChild);
+            leftRotate(x);
+        }
 
         private int max(Node L, Node R) {
             if (L.height < R.height) {
