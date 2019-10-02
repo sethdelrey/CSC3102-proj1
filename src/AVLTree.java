@@ -13,6 +13,7 @@ public class AVLTree {
 
         public void insert(int _key) {
             // TODO: Add updates to height and balance factor and rotation stuff.
+
             Node insertNode = new Node(_key,parent);
             return recurseInsert(root,insertNode);
 
@@ -36,6 +37,7 @@ public class AVLTree {
 //                }
 //            }
 //        }
+
     }
     private Node root;
 
@@ -80,6 +82,10 @@ public class AVLTree {
 //
 //            }
 //        }
+    }
+
+    public int search(int _key) {
+        return search(root, _key).key;
     }
 
     public Node search(Node x, int k) {
@@ -137,8 +143,8 @@ public class AVLTree {
         if (k < x.key)
             return recurseRank(x.leftChild,k);
         if (k == x.key)
-            return x.leftChild.size+1;
-        return x.leftChild.size+1+recurseRank(x.rightChild,k);
+            return x.leftChild.size + 1;
+        return x.leftChild.size + 1 + recurseRank(x.rightChild,k);
     }
 
 
@@ -193,6 +199,7 @@ public class AVLTree {
     }
 
     public int height(Node x) {
+        //working on this
         if (x == null)
             return 0;
         return x.height;

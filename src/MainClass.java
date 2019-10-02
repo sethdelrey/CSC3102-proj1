@@ -14,6 +14,7 @@ public class MainClass {
                 sin.useDelimiter(" ");
                 String choice = sin.next();
                 String str = "";
+                int val;
                 switch (choice) {
                     case "IN":
                         A.insert(sin.nextInt());
@@ -25,13 +26,15 @@ public class MainClass {
                         str = String.format("%-8d//MA%n",A.getKey(A.maximum(A.getRoot())));
                         break;
                     case "PR":
-                        int val = sin.nextInt();
+                        val = sin.nextInt();
                         str = String.format("%-8d//PR %d%n", A.predecessor(A.search(A.getRoot(), val)), val);
                         break;
                     case "SR":
-                        A.search(A.getRoot(), sin.nextInt());
+                        val = sin.nextInt();
+                        str = String.format("%-8d//SR%n", A.search(val), val);
                         break;
                     case "SC":
+                        //str = String.format();
                         A.successor(A.search(A.getRoot(), sin.nextInt()));
                         break;
                     case "RA":
