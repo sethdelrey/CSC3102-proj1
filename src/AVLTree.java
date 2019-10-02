@@ -103,7 +103,26 @@ public class AVLTree {
                 else{
                     //first subcase
                     if (x.rightChild.bf == -1) {
-                        
+                        leftRotate(x);
+                        x.bf = x.parent.bf = 0;
+                        heightInc = false;
+                    }
+                    //second subcase
+                    else if (x.rightChild.bf == 1) {
+                        int b = x.rightChild.leftChild.bf;
+                        leftRightRotate(x);
+                        x.parent.bf = 0;
+                        if (b == 0)
+                            x.bf = x.parent.rightChild.bf = 0;
+                        else if (b == 1) {
+                            x.bf = 0;
+                            x.parent.rightChild.bf = -1;
+                        }
+                        else if (b == -1) {
+                            x.bf = 1;
+                            x.parent.rightChild.bf = 0;
+                        }
+                        heightInc = false;
                     }
                 }
             }
