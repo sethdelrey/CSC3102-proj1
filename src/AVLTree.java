@@ -20,6 +20,7 @@ public class AVLTree {
                 }
                 else {
                     leftChild = new Node(_key, this);
+                    this.height++;
                 }
             }
             else if (key < _key) {
@@ -29,6 +30,7 @@ public class AVLTree {
                 }
                 else {
                     rightChild = new Node(_key, this);
+                    this.height++;
                 }
             }
         }
@@ -76,6 +78,10 @@ public class AVLTree {
 //
 //            }
 //        }
+    }
+
+    public int search(int _key) {
+        return search(root, _key).key;
     }
 
     public Node search(Node x, int k) {
@@ -135,8 +141,8 @@ public class AVLTree {
         if (k < x.key)
             return recurseRank(x.leftChild,k);
         if (k == x.key)
-            return x.leftChild.size+1;
-        return x.leftChild.size+1+recurseRank(x.rightChild,k);
+            return x.leftChild.size + 1;
+        return x.leftChild.size + 1 + recurseRank(x.rightChild,k);
     }
 
 
@@ -191,6 +197,7 @@ public class AVLTree {
     }
 
     public int height(Node x) {
+        //working on this
         if (x == null)
             return 0;
         return x.height;
