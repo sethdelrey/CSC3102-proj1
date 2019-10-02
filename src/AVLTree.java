@@ -13,25 +13,29 @@ public class AVLTree {
 
         public void insert(int _key) {
             // TODO: Add updates to height and balance factor and rotation stuff.
-            if (key > _key) {
-                // Add to the left
-                if (leftChild != null) {
-                    leftChild.insert(_key);
-                }
-                else {
-                    leftChild = new Node(_key, this);
-                }
-            }
-            else if (key < _key) {
-                // Add to the right
-                if (rightChild != null) {
-                    rightChild.insert(_key);
-                }
-                else {
-                    rightChild = new Node(_key, this);
-                }
-            }
-        }
+            Node insertNode = new Node(_key,parent);
+            return recurseInsert(root,insertNode);
+
+
+//            if (key > _key) {
+//                // Add to the left
+//                if (leftChild != null) {
+//                    leftChild.insert(_key);
+//                }
+//                else {
+//                    leftChild = new Node(_key, this);
+//                }
+//            }
+//            else if (key < _key) {
+//                // Add to the right
+//                if (rightChild != null) {
+//                    rightChild.insert(_key);
+//                }
+//                else {
+//                    rightChild = new Node(_key, this);
+//                }
+//            }
+//        }
     }
     private Node root;
 
@@ -124,8 +128,6 @@ public class AVLTree {
     }
 
     public int rank(int _key) {
-        //he wants it done by inorder traversal but i dont
-        // think it's necessary
         return recurseRank(root, _key);
     }
 
