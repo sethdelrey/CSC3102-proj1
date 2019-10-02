@@ -13,6 +13,46 @@ public class AVLTree {
             bf = 0;
         }
 
+        public void rightRotate(Node x) {
+            Node y = x.leftChild;
+            transplant(y, y.rightChild);
+            transplant(x, y);
+            y.rightChild = x;
+            x.parent = y;
+            x.height = 1 + max(x.leftChild, x.rightChild);
+            y.height = 1 + max(y.leftChild, x.rightChild);
+        }
+        
+
+        private int max(Node L, Node R) {
+            if (L.height < R.height) {
+                return R.height;
+            }
+            else {
+                return L.height;
+            }
+        }
+
+        public void transplant(Node x, Node y) {
+            if (x.parent == null) {
+                root = y;
+            }
+            else if (x.parent.leftChild == x) {
+                x.parent.rightChild = y;
+            }
+            else {
+                x.parent.rightChild = y;
+            }
+            if (y != null) {
+                y.parent = x.parent;
+            }
+//            Node y = x.leftChild;
+//            transplant(y, y.right);
+//            transplant(x, y);
+//            y.rightChild = x;
+//            x.parent = y;
+        }
+
         public void insert(int _key) {
             // TODO: Add updates to height and balance factor and rotation stuff.
 
@@ -132,6 +172,10 @@ public class AVLTree {
         return search(x.rightChild, k);
     }
 
+    public int successor(int _key) {
+        return successor(search(root, _key)).key;
+    }
+
     public Node successor(Node x) {
         if (x.rightChild != null) {
             return miniumum(x.rightChild);
@@ -207,6 +251,12 @@ public class AVLTree {
             x = x.rightChild;
         }
         return x;
+    }
+
+    public String inOrder() {
+        String value = inOrder(root);
+        value = value.substring(0, value.length() - 2);
+        return value;
     }
 
     public String inOrder(Node x) {

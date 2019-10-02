@@ -14,34 +14,36 @@ public class MainClass {
                 sin.useDelimiter(" ");
                 String choice = sin.next();
                 String str = "";
-                int val;
+                int val = 0;
+                if (sin.hasNextInt()) {
+                    val = sin.nextInt();
+                }
+
                 switch (choice) {
                     case "IN":
-                        A.insert(sin.nextInt());
+                        A.insert(val);
                         break;
                     case "MI":
-                        str = String.format("%-8d//MI%n",A.getKey(A.miniumum(A.getRoot())));
+                        str = String.format("%-8d//MI%n", A.getKey(A.miniumum(A.getRoot())));
                         break;
                     case "MA":
-                        str = String.format("%-8d//MA%n",A.getKey(A.maximum(A.getRoot())));
+                        str = String.format("%-8d//MA%n", A.getKey(A.maximum(A.getRoot())));
                         break;
                     case "PR":
-                        val = sin.nextInt();
                         str = String.format("%-8d//PR %d%n", A.predecessor(A.search(A.getRoot(), val)), val);
                         break;
                     case "SR":
-                        val = sin.nextInt();
                         str = String.format("%-8d//SR%n", A.search(val), val);
                         break;
                     case "SC":
-                        //str = String.format();
-                        A.successor(A.search(A.getRoot(), sin.nextInt()));
+                        str = String.format("%-8d//SC %d%n", A.successor(val), val);
                         break;
                     case "RA":
+                        str = String.format("%-8d//RA %d%n", A.rank(val),val);
                         A.rank(sin.nextInt());
                         break;
                     case "TR":
-                        A.inOrder(A.getRoot());
+                        str = A.inOrder() + "     //TR";
                         break;
                 }
                 write.write(str);
