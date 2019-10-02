@@ -77,6 +77,7 @@ public class AVLTree {
 
             Node insertNode = new Node(_key,parent);
             recurseInsert(root,insertNode);
+            heightInc = false;
 
 
 //            if (key > _key) {
@@ -143,6 +144,32 @@ public class AVLTree {
                         }
                         heightInc = false;
                     }
+                }
+            } else if (x.key > z.key) {
+                if (x.leftChild != null)
+                    recurseInsert(x.leftChild, z);
+                else {
+                    x.leftChild = z;
+                    z.bf = 0;
+                    heightInc = true;
+                }
+                if (heightInc) {
+                    //case 2.1
+                    if (x.bf == 0)
+                        x.bf = 1;
+                    //case 2.2
+                    else if (x.bf == -1) {
+                        x.bf = 0;
+                        heightInc = false;
+                    }
+                    //case 2.3
+                    else {
+                        //first subcase
+                        if (x.leftChild.bf == -1)
+                    }
+                }
+                else {
+
                 }
             }
         }
