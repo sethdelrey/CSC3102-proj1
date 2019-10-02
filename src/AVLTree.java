@@ -1,6 +1,6 @@
 public class AVLTree {
     private class Node {
-        public int key, height, size, balanceFactor;
+        public int key, height, size;
         public Node leftChild, rightChild, parent;
 
         //public Comparable data;
@@ -9,7 +9,6 @@ public class AVLTree {
             key = _key;
             parent = _parent;
             height = 1;
-            balanceFactor = 0;
         }
 
         public void insert(int _key) {
@@ -127,7 +126,7 @@ public class AVLTree {
     public int rank(int _key) {
         //he wants it done by inorder traversal but i dont
         // think it's necessary
-        return new int recurseRank(root, _key);
+        return recurseRank(root, _key);
     }
 
     private int recurseRank(Node x, int k) {
@@ -192,7 +191,6 @@ public class AVLTree {
     }
 
     public int height(Node x) {
-        //working on this
         if (x == null)
             return 0;
         return x.height;
