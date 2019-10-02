@@ -1,7 +1,8 @@
 public class AVLTree {
     private class Node {
-        public int key, height, size;
+        public int key, height, size, bf;
         public Node leftChild, rightChild, parent;
+        public boolean heightInc = false;
 
         //public Comparable data;
 
@@ -9,6 +10,7 @@ public class AVLTree {
             key = _key;
             parent = _parent;
             height = 1;
+            bf = 0;
         }
 
         public void insert(int _key) {
@@ -38,7 +40,34 @@ public class AVLTree {
 //            }
         }
 
-        private void recurseInsert()
+        private void recurseInsert(Node x, Node z) {
+            if (x.key < z.key) {
+                if (x.rightChild != null)
+                    recurseInsert(x.rightChild, z);
+                else {
+                    x.rightChild = z;
+                    z.bf = 0;
+                    heightInc = true;
+                }
+                if (heightInc) {
+                    //case 2.1
+                    if (x.bf == 0)
+                        x.bf = -1;
+                    //case 2.2
+                    else if (x.bf == 1) {
+                        x.bf = 0;
+                        heightInc = false;
+                    }
+                }
+                //case 2.3
+                else{
+                    //first subcase
+                    if (x.rightChild.bf == -1) {
+                        
+                    }
+                }
+            }
+        }
 
     }
     private Node root;
@@ -207,7 +236,7 @@ public class AVLTree {
         return x.height;
     }
 
-    public int balanceFactor(Node x) {
+    public int getbalanceFactor(Node x) {
         //finds balance factor
         if (x == null)
             return 0;
