@@ -240,7 +240,6 @@ public class AVLTree {
 
     public Node select(int i) {
         return recurseSelect(root, i);
-      //  return new Node(i, null);
     }
 
     private Node recurseSelect(Node x, int i) {
