@@ -26,7 +26,7 @@ public class MainClass {
                         break;
                     case "PR":
                         int val = sin.nextInt();
-                        str = String.format("%-8d//PR %d%n", A.predessor(A.search(A.getRoot(), val)), val);
+                        str = String.format("%-8d//PR %d%n", A.predecessor(A.search(A.getRoot(), val)), val);
                         break;
                     case "SR":
                         A.search(A.getRoot(), sin.nextInt());
