@@ -15,7 +15,7 @@ public class AVLTree {
             // TODO: Add updates to height and balance factor and rotation stuff.
 
             Node insertNode = new Node(_key,parent);
-            return recurseInsert(root,insertNode);
+            recurseInsert(root,insertNode);
 
 
 //            if (key > _key) {
@@ -37,6 +37,8 @@ public class AVLTree {
 //                }
 //            }
         }
+
+        private void recurseInsert()
 
     }
     private Node root;
