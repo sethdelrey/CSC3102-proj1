@@ -30,7 +30,7 @@ public class MainClass {
                         str = String.format("%-8d%n", A.getKey(A.maximum(A.getRoot())));
                         break;
                     case "PR":
-                        str = String.format("%-8d%n", A.predecessor(A.search(A.getRoot(), val)));
+                        str = String.format("%-8d%n", A.predecessor(val));
                         break;
                     case "SR":
                         str = String.format("%-8d%n", A.search(val));
