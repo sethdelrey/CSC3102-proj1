@@ -109,11 +109,8 @@ public class AVLTree {
     }
 
     public Node select(int i) {
-        //working on how to do this without given node
-        //want to use root but must be able to change
         return recurseSelect(root, i);
-
-        return new Node(i, null);
+      //  return new Node(i, null);
     }
 
     private Node recurseSelect(Node x, int i) {
@@ -138,10 +135,13 @@ public class AVLTree {
             return 0;
         if (k < x.key)
             return recurseRank(x.leftChild,k);
+        if (k == x.key)
+            return x.leftChild.size+1;
+        return x.leftChild.size+1+recurseRank(x.rightChild,k);
     }
 
 
-    public Node predessor(Node x) {
+    public Node predecessor(Node x) {
         // This is what he had in the slides?
         if (x.leftChild != null) {
             return maximum(x.leftChild);
