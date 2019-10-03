@@ -165,7 +165,27 @@ public class AVLTree {
                     //case 2.3
                     else {
                         //first subcase
-                        if (x.leftChild.bf == -1)
+                        if (x.leftChild.bf == 1) {
+                            rightRotate(x);
+                            x.bf = x.parent.bf = 0;
+                            heightInc = false;
+                        } else if (x.leftChild.bf == -1) {
+                            //second subcase (this SHOULD work)
+                            int c = x.leftChild.rightChild.bf;
+                            rightLeftRotate(x);
+                            x.parent.bf = 0;
+                            if (c == 0)
+                                x.bf = x.parent.leftChild.bf = 0;
+                            else if (c == 1) {
+                                x.bf = 0;
+                                x.parent.leftChild.bf = 1;
+                            }
+                            else if (c == -1) {
+                                x.bf = -1;
+                                x.parent.leftChild.bf = 0;
+                            }
+                            heightInc = false;
+                        }
                     }
                 }
                 else {
