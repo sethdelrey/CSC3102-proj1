@@ -9,8 +9,9 @@ public class MainClass {
         AVLTree A = new AVLTree();
         try (Scanner fin = new Scanner(new File("AVLtree-input.txt"))) {
             FileWriter write = new FileWriter(new File("output.txt"));
+            Scanner sin;
             while (fin.hasNextLine()) {
-                Scanner sin  = new Scanner(fin.nextLine());
+                sin  = new Scanner(fin.nextLine());
                 sin.useDelimiter(" ");
                 String choice = sin.next();
                 String str = "";
