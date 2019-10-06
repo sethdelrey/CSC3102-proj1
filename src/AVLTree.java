@@ -119,88 +119,85 @@ public class AVLTree {
                     //case 2.1
                     if (x.bf == 0)
                         x.bf = -1;
-                    //case 2.2
+                        //case 2.2
                     else if (x.bf == 1) {
                         x.bf = 0;
                         heightInc = false;
                     }
-                }
-                //case 2.3
-                else{
-                    //first subcase
-                    if (x.rightChild.bf == -1) {
-                        leftRotate(x);
-                        x.bf = x.parent.bf = 0;
-                        heightInc = false;
-                    }
-                    //second subcase
-                    else if (x.rightChild.bf == 1) {
-                        int b = x.rightChild.leftChild.bf;
-                        leftRightRotate(x);
-                        x.parent.bf = 0;
-                        if (b == 0)
-                            x.bf = x.parent.rightChild.bf = 0;
-                        else if (b == 1) {
-                            x.bf = 0;
-                            x.parent.rightChild.bf = -1;
-                        }
-                        else if (b == -1) {
-                            x.bf = 1;
-                            x.parent.rightChild.bf = 0;
-                        }
-                        heightInc = false;
-                    }
-                }
-            } else if (x.key > z.key) {
-                if (x.leftChild != null)
-                    recurseInsert(x.leftChild, z);
-                else {
-                    x.leftChild = z;
-                    z.parent = x;
-                    z.bf = 0;
-                    heightInc = true;
-                }
-                if (heightInc) {
-                    //case 2.1
-                    if (x.bf == 0)
-                        x.bf = 1;
-                    //case 2.2
-                    else if (x.bf == -1) {
-                        x.bf = 0;
-                        heightInc = false;
-                    }
+
                     //case 2.3
                     else {
                         //first subcase
-                        if (x.leftChild.bf == 1) {
-                            rightRotate(x);
+                        if (x.rightChild.bf == -1) {
+                            leftRotate(x);
                             x.bf = x.parent.bf = 0;
                             heightInc = false;
-                        } else if (x.leftChild.bf == -1) {
-                            //second subcase (this SHOULD work)
-                            int c = x.leftChild.rightChild.bf;
+                        }
+                        //second subcase
+                        else if (x.rightChild.bf == 1) {
+                            int b = x.rightChild.leftChild.bf;
                             leftRightRotate(x);
                             x.parent.bf = 0;
-                            if (c == 0)
-                                x.bf = x.parent.leftChild.bf = 0;
-                            else if (c == 1) {
+                            if (b == 0)
+                                x.bf = x.parent.rightChild.bf = 0;
+                            else if (b == 1) {
                                 x.bf = 0;
-                                x.parent.leftChild.bf = 1;
-                            }
-                            else if (c == -1) {
-                                x.bf = -1;
-                                x.parent.leftChild.bf = 0;
+                                x.parent.rightChild.bf = -1;
+                            } else if (b == -1) {
+                                x.bf = 1;
+                                x.parent.rightChild.bf = 0;
                             }
                             heightInc = false;
                         }
                     }
-                }
-                else {
+                } else if (x.key > z.key) {
+                    if (x.leftChild != null)
+                        recurseInsert(x.leftChild, z);
+                    else {
+                        x.leftChild = z;
+                        z.parent = x;
+                        z.bf = 0;
+                        heightInc = true;
+                    }
+                    if (heightInc) {
+                        //case 2.1
+                        if (x.bf == 0)
+                            x.bf = 1;
+                            //case 2.2
+                        else if (x.bf == -1) {
+                            x.bf = 0;
+                            heightInc = false;
+                        }
+                        //case 2.3
+                        else {
+                            //first subcase
+                            if (x.leftChild.bf == 1) {
+                                rightRotate(x);
+                                x.bf = x.parent.bf = 0;
+                                heightInc = false;
+                            } else if (x.leftChild.bf == -1) {
+                                //second subcase (this SHOULD work)
+                                int c = x.leftChild.rightChild.bf;
+                                leftRightRotate(x);
+                                x.parent.bf = 0;
+                                if (c == 0)
+                                    x.bf = x.parent.leftChild.bf = 0;
+                                else if (c == 1) {
+                                    x.bf = 0;
+                                    x.parent.leftChild.bf = 1;
+                                } else if (c == -1) {
+                                    x.bf = -1;
+                                    x.parent.leftChild.bf = 0;
+                                }
+                                heightInc = false;
+                            }
+                        }
+                    } else {
 
+                    }
                 }
             }
         }
-
     }
 
     private Node root;
