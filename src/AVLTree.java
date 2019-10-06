@@ -128,7 +128,7 @@ public class AVLTree {
                     //case 2.3
                     else {
                         //first subcase
-                        if (x.rightChild.bf == -1) {
+                        if (x.rightChild.bf == 1) {
                             leftRotate(x);
                             x.bf = x.parent.bf = 0;
                             heightInc = false;
