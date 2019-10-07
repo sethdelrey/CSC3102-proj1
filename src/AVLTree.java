@@ -111,7 +111,7 @@ public class AVLTree {
                 }
                 if (heightInc) {
                     //case 2.1
-                    if (x.bf == 0) {
+                    if (x.bf == 0 && (x.leftChild != null || x.rightChild != null)) {
                         x.bf = -1;
                     }
                     //case 2.2
@@ -156,7 +156,7 @@ public class AVLTree {
                     }
                     if (heightInc) {
                         //case 2.1
-                        if (x.bf == 0) {
+                        if (x.bf == 0 && (x.leftChild != null || x.rightChild != null)) {
                             x.bf = 1;
                         }
                         //case 2.2
