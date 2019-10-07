@@ -124,7 +124,6 @@ public class AVLTree {
                         x.bf = 0;
                         heightInc = false;
                     }
-
                     //case 2.3
                     else {
                         //first subcase
@@ -193,8 +192,6 @@ public class AVLTree {
                                 heightInc = false;
                             }
                         }
-                    } else {
-
                     }
                 }
             }
