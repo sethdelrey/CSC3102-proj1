@@ -77,7 +77,6 @@ public class AVLTree {
 
             Node insertNode = new Node(_key, parent);
             recurseInsert(root, insertNode);
-            heightInc = false;
 
 
 //            if (key > _key) {
@@ -131,7 +130,7 @@ public class AVLTree {
                         //second subcase
                         else if (x.rightChild.bf == 1) {
                             int b = x.rightChild.leftChild.bf;
-                            leftRightRotate(x);
+                            rightLeftRotate(x);
                             x.parent.bf = 0;
                             if (b == 0)
                                 x.bf = x.parent.rightChild.bf = 0;
@@ -175,7 +174,7 @@ public class AVLTree {
                             } else if (x.leftChild.bf == -1) {
                                 //second subcase (this SHOULD work)
                                 int c = x.leftChild.rightChild.bf;
-                                rightLeftRotate(x);
+                                leftRightRotate(x);
                                 x.parent.bf = 0;
                                 if (c == 0)
                                     x.bf = x.parent.leftChild.bf = 0;
