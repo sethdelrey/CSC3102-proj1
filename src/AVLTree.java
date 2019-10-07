@@ -150,6 +150,7 @@ public class AVLTree {
                             heightInc = false;
                         }
                     }
+                }
                 } else if (x.key > z.key) {
                     if (x.leftChild != null)
                         recurseInsert(x.leftChild, z);
@@ -198,7 +199,8 @@ public class AVLTree {
                 }
             }
         }
-    }
+
+
 
     private Node root;
 
@@ -257,9 +259,9 @@ public class AVLTree {
             return x;
         }
         if (x.key > k) {
-            return recurseSelect(x.leftChild, k);
+            return recurseSearch(x.leftChild, k);
         }
-        return recurseSelect(x.rightChild, k);
+        return recurseSearch(x.rightChild, k);
     }
 
     public int successor(int _key) {
@@ -287,9 +289,11 @@ public class AVLTree {
     }
 
     private Node recurseSelect(Node x, int i) {
-        if (x == null)
+        if (x == null) {
             //throw exception or just give statement?
             System.out.print("Error: no item found.");
+            return null;
+        }
         if (x.leftChild.size >= 1)
             return recurseSelect(x.leftChild, i);
         if (x.leftChild.size + 1 == i)

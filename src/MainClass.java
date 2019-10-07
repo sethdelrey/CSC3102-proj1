@@ -41,7 +41,6 @@ public class MainClass {
                         break;
                     case "RA":
                         str = String.format("%-8d%n", A.rank(val));
-                        A.rank(sin.nextInt());
                         break;
                     case "TR":
                         str = A.inOrder();
