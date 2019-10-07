@@ -25,8 +25,8 @@ public class AVLTree {
 
         public void leftRotate(Node x) {
             Node y = x.rightChild;
-            transplant(y,y.leftChild);
-            transplant(x,y);
+            transplant(y, y.leftChild);
+            transplant(x, y);
             y.leftChild = x;
             x.parent = y;
             x.height = 1 + max(x.leftChild, x.rightChild);
@@ -50,14 +50,11 @@ public class AVLTree {
                 } else {
                     return L.height;
                 }
-            }
-            else if (L == null && R == null) {
+            } else if (L == null && R == null) {
                 return 0;
-            }
-            else if (L == null) {
+            } else if (L == null) {
                 return R.height;
-            }
-            else {
+            } else {
                 return L.height;
             }
         }
@@ -65,11 +62,9 @@ public class AVLTree {
         public void transplant(Node x, Node y) {
             if (x.parent == null) {
                 root = y;
-            }
-            else if (x.parent.leftChild == x) {
+            } else if (x.parent.leftChild == x) {
                 x.parent.leftChild = y;
-            }
-            else {
+            } else {
                 x.parent.rightChild = y;
             }
             if (y != null) {
@@ -80,8 +75,8 @@ public class AVLTree {
         public void insert(int _key) {
             // TODO: Add updates to height and balance factor and rotation stuff.
 
-            Node insertNode = new Node(_key,parent);
-            recurseInsert(root,insertNode);
+            Node insertNode = new Node(_key, parent);
+            recurseInsert(root, insertNode);
             heightInc = false;
 
 
@@ -117,9 +112,10 @@ public class AVLTree {
                 }
                 if (heightInc) {
                     //case 2.1
-                    if (x.bf == 0)
+                    if (x.bf == 0) {
                         x.bf = -1;
-                        //case 2.2
+                    }
+                    //case 2.2
                     else if (x.bf == 1) {
                         x.bf = 0;
                         heightInc = false;
@@ -127,7 +123,7 @@ public class AVLTree {
                     //case 2.3
                     else {
                         //first subcase
-                        if (x.rightChild.bf == 1) {
+                        if (x.rightChild.bf == -1) {
                             leftRotate(x);
                             x.bf = x.parent.bf = 0;
                             heightInc = false;
@@ -161,9 +157,10 @@ public class AVLTree {
                     }
                     if (heightInc) {
                         //case 2.1
-                        if (x.bf == 0)
+                        if (x.bf == 0) {
                             x.bf = 1;
-                            //case 2.2
+                        }
+                        //case 2.2
                         else if (x.bf == -1) {
                             x.bf = 0;
                             heightInc = false;
@@ -178,7 +175,7 @@ public class AVLTree {
                             } else if (x.leftChild.bf == -1) {
                                 //second subcase (this SHOULD work)
                                 int c = x.leftChild.rightChild.bf;
-                                leftRightRotate(x);
+                                rightLeftRotate(x);
                                 x.parent.bf = 0;
                                 if (c == 0)
                                     x.bf = x.parent.leftChild.bf = 0;
@@ -196,6 +193,8 @@ public class AVLTree {
                 }
             }
         }
+
+
 
 
 
