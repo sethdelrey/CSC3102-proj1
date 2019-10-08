@@ -4,13 +4,12 @@ public class AVLTree {
         public Node leftChild, rightChild, parent;
         public boolean heightInc = false;
 
-        //public Comparable data;
-
         public Node(int _key, Node _parent) {
             key = _key;
             parent = _parent;
             height = 1;
             bf = 0;
+            size = 1;
         }
 
         public void rightRotate(Node x) {
@@ -19,6 +18,8 @@ public class AVLTree {
             transplant(x, y);
             y.rightChild = x;
             x.parent = y;
+            x.size = 1 + sumSize(x.leftChild, x.rightChild);
+            y.size = 1 + sumSize(y.leftChild, y.rightChild);
             x.height = 1 + max(x.leftChild, x.rightChild);
             y.height = 1 + max(y.leftChild, x.rightChild);
         }
@@ -29,8 +30,10 @@ public class AVLTree {
             transplant(x, y);
             y.leftChild = x;
             x.parent = y;
+            x.size = 1 + sumSize(x.leftChild, x.rightChild);
+            y.size = 1 + sumSize(y.leftChild, y.rightChild);
             x.height = 1 + max(x.leftChild, x.rightChild);
-            y.height = 1 + max(y.leftChild, x.rightChild);
+            y.height = 1 + max(y.leftChild, y.rightChild);
         }
 
         public void leftRightRotate(Node x) {
@@ -43,6 +46,16 @@ public class AVLTree {
             leftRotate(x);
         }
 
+        private int sumSize(Node x, Node y) {
+            int sum = 0;
+            if (x != null) {
+                sum += x.size;
+            }
+            if (y != null) {
+                sum += y.size;
+            }
+            return sum;
+        }
         private int max(Node L, Node R) {
             if (L != null && R != null) {
                 if (L.height < R.height) {
@@ -77,37 +90,20 @@ public class AVLTree {
 
             Node insertNode = new Node(_key, parent);
             recurseInsert(root, insertNode);
-
-
-//            if (key > _key) {
-//                // Add to the left
-//                if (leftChild != null) {
-//                    leftChild.insert(_key);
-//                }
-//                else {
-//                    leftChild = new Node(_key, this);
-//                }
-//            }
-//            else if (key < _key) {
-//                // Add to the right
-//                if (rightChild != null) {
-//                    rightChild.insert(_key);
-//                }
-//                else {
-//                    rightChild = new Node(_key, this);
-//                }
-//            }
         }
 
         private void recurseInsert(Node x, Node z) {
             if (x.key < z.key) {
-                if (x.rightChild != null)
+                if (x.rightChild != null) {
                     recurseInsert(x.rightChild, z);
+                    x.size++;
+                }
                 else {
                     x.rightChild = z;
                     z.parent = x;
                     z.bf = 0;
                     heightInc = true;
+                    x.size++;
                 }
                 if (heightInc) {
                     //case 2.1
@@ -146,13 +142,16 @@ public class AVLTree {
                     }
                 }
                 } else if (x.key > z.key) {
-                    if (x.leftChild != null)
+                    if (x.leftChild != null) {
                         recurseInsert(x.leftChild, z);
+                        x.size++;
+                    }
                     else {
                         x.leftChild = z;
                         z.parent = x;
                         z.bf = 0;
                         heightInc = true;
+                        x.size++;
                     }
                     if (heightInc) {
                         //case 2.1
@@ -179,11 +178,11 @@ public class AVLTree {
                                 if (c == 0)
                                     x.bf = x.parent.leftChild.bf = 0;
                                 else if (c == 1) {
-                                    x.bf = 0;
-                                    x.parent.leftChild.bf = 1;
-                                } else if (c == -1) {
                                     x.bf = -1;
                                     x.parent.leftChild.bf = 0;
+                                } else if (c == -1) {
+                                    x.bf = 0;
+                                    x.parent.leftChild.bf = 1;
                                 }
                                 heightInc = false;
                             }
@@ -192,10 +191,6 @@ public class AVLTree {
                 }
             }
         }
-
-
-
-
 
     private Node root;
 
@@ -222,24 +217,6 @@ public class AVLTree {
         else {
             root = new Node(_key, null);
         }
-
-
-
-//        else if (root.key > _key) {
-//            // Add to left side of tree
-//            if (root.leftChild != null) {
-//                root.leftChild.insert(_key);
-//            }
-//            else {
-//                root.leftChild = new Node(_key, root);
-//            }
-//        }
-//        else if (root.key < _key){
-//            // Add to the right side of the tree
-//            if (root.rightChild != null) {
-//
-//            }
-//        }
     }
 
     public int search(int _key) {
@@ -279,21 +256,26 @@ public class AVLTree {
         //return new Node(_key, null);
     }
 
-    public Node select(int i) {
-        return recurseSelect(root, i);
+    public int select(int i) {
+        return recurseSelect(root, i).key;
     }
 
     private Node recurseSelect(Node x, int i) {
         if (x == null) {
             //throw exception or just give statement?
-            System.out.print("Error: no item found.");
+            System.out.print("Error: no item found.\n");
             return null;
         }
-        if (x.leftChild.size >= 1)
-            return recurseSelect(x.leftChild, i);
-        if (x.leftChild.size + 1 == i)
-            return x;
-        return recurseSelect(x.rightChild, i-1-x.leftChild.size);
+        int leftChildSize = 0;
+        if (x.leftChild != null) {
+            leftChildSize = x.leftChild.size;
+        }
+
+            if (leftChildSize >= i)
+                return recurseSelect(x.leftChild, i);
+            if (leftChildSize + 1 == i)
+                return x;
+            return recurseSelect(x.rightChild, i - 1 - leftChildSize);
     }
 
     public int rank(int _key) {
@@ -301,13 +283,25 @@ public class AVLTree {
     }
 
     private int recurseRank(Node x, int k) {
-        if (x == null)
+        if (x == null) {
             return 0;
-        if (k < x.key)
-            return recurseRank(x.leftChild,k);
-        if (k == x.key)
-            return x.leftChild.size + 1;
-        return x.leftChild.size + 1 + recurseRank(x.rightChild,k);
+        }
+        if (k < x.key) {
+            return recurseRank(x.leftChild, k);
+        }
+        if (k == x.key) {
+            if (x.leftChild != null) {
+                return x.leftChild.size + 1;
+            }
+            else {
+                return 1;
+            }
+        }
+        int leftSize = 0;
+        if (x.leftChild != null) {
+            leftSize = x.leftChild.size;
+        }
+        return leftSize + 1 + recurseRank(x.rightChild,k);
     }
 
     public int predecessor(int _key) {

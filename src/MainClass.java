@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
+        long startTime = System.nanoTime();
         AVLTree A = new AVLTree();
         try (Scanner fin = new Scanner(new File("AVLtree-input.txt"))) {
             FileWriter write = new FileWriter(new File("output.txt"));
@@ -25,29 +26,35 @@ public class MainClass {
                         A.insert(val);
                         break;
                     case "MI":
-                        str = String.format("%-8d%n", A.getKey(A.miniumum(A.getRoot())));
+                        str = A.getKey(A.miniumum(A.getRoot())) + "\n";
                         break;
                     case "MA":
-                        str = String.format("%-8d%n", A.getKey(A.maximum(A.getRoot())));
+                        str = A.getKey(A.maximum(A.getRoot())) + "\n";
                         break;
                     case "PR":
-                        str = String.format("%-8d%n", A.predecessor(val));
+                        str = A.predecessor(val) + "\n";
+                        break;
+                    case "SE":
+                        str = A.select(val) + "\n";
                         break;
                     case "SR":
-                        str = String.format("%-8d%n", A.search(val));
+                        str = A.search(val) + "\n";
                         break;
                     case "SC":
-                        str = String.format("%-8d%n", A.successor(val));
+                        str = A.successor(val) + "\n";
                         break;
                     case "RA":
-                        str = String.format("%-8d%n", A.rank(val));
+                        str = A.rank(val) + "\n";
                         break;
                     case "TR":
-                        str = A.inOrder();
+                        str = A.inOrder() + "\n";
                         break;
                 }
                 write.write(str);
             }
+            long endTime = System.nanoTime();
+            long time = endTime - startTime;
+            write.write(time/1000 + " micro-sec");
             write.close();
         }
         catch (FileNotFoundException ex) {
