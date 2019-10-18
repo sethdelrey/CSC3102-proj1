@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class MainClass {
+
+    //Method that reads a file and adds its contents to an AVL Tree
+    //while maintaining the binary and balance properties.
+    //Writes the completed AVL Tree in sorted order into a separate ouput file.
     public static void main(String[] args) {
         System.out.print("Enter the file you would like to process: ");
         Scanner cin = new Scanner(System.in);
