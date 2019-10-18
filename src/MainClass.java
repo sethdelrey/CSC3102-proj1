@@ -1,3 +1,10 @@
+/*
+Seth Richard, Raquel Hodgeson
+Programming Project 1
+CSC 3102 - Dr. Shah
+10/18/19
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

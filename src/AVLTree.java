@@ -1,3 +1,10 @@
+/*
+Seth Richard, Raquel Hodgeson
+Programming Project 1
+CSC 3102 - Dr. Shah
+10/18/19
+ */
+
 public class AVLTree {
     private class Node {
         public int key, height, size, bf;
