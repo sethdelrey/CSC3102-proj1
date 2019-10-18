@@ -1,5 +1,6 @@
 /*
-Seth Richard, Raquel Hodgeson
+Seth Richard (sric111@lsu.edu)
+Raquel Hodgeson (rhodg14@lsu.edu, 89-399-5177)
 Programming Project 1
 CSC 3102 - Dr. Shah
 10/18/19
