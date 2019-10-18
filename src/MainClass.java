@@ -26,10 +26,10 @@ public class MainClass {
                         A.insert(val);
                         break;
                     case "MI":
-                        str = A.getKey(A.miniumum(A.getRoot())) + "\n";
+                        str = A.minimum() + "\n";
                         break;
                     case "MA":
-                        str = A.getKey(A.maximum(A.getRoot())) + "\n";
+                        str = A.maximum() + "\n";
                         break;
                     case "PR":
                         str = A.predecessor(val) + "\n";

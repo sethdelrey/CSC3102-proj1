@@ -4,9 +4,9 @@ public class AVLTree {
         public Node leftChild, rightChild, parent;
         public boolean heightInc = false;
 
-        public Node(int _key, Node _parent) {
+        public Node(int _key) {
             key = _key;
-            parent = _parent;
+            parent = null;
             height = 1;
             bf = 0;
             size = 1;
@@ -20,8 +20,8 @@ public class AVLTree {
             x.parent = y;
             x.size = 1 + sumSize(x.leftChild, x.rightChild);
             y.size = 1 + sumSize(y.leftChild, y.rightChild);
-            x.height = 1 + max(x.leftChild, x.rightChild);
-            y.height = 1 + max(y.leftChild, x.rightChild);
+            x.height = 1 + maxHeight(x.leftChild, x.rightChild);
+            y.height = 1 + maxHeight(y.leftChild, x.rightChild);
         }
 
         public void leftRotate(Node x) {
@@ -32,8 +32,8 @@ public class AVLTree {
             x.parent = y;
             x.size = 1 + sumSize(x.leftChild, x.rightChild);
             y.size = 1 + sumSize(y.leftChild, y.rightChild);
-            x.height = 1 + max(x.leftChild, x.rightChild);
-            y.height = 1 + max(y.leftChild, y.rightChild);
+            x.height = 1 + maxHeight(x.leftChild, x.rightChild);
+            y.height = 1 + maxHeight(y.leftChild, y.rightChild);
         }
 
         public void leftRightRotate(Node x) {
@@ -56,7 +56,9 @@ public class AVLTree {
             }
             return sum;
         }
-        private int max(Node L, Node R) {
+        
+        // Gets the maximum height of two nodes.
+        private int maxHeight(Node L, Node R) {
             if (L != null && R != null) {
                 if (L.height < R.height) {
                     return R.height;
@@ -72,6 +74,7 @@ public class AVLTree {
             }
         }
 
+        // Rearranges two nodes and stitches their pointers back together.
         public void transplant(Node x, Node y) {
             if (x.parent == null) {
                 root = y;
@@ -85,13 +88,13 @@ public class AVLTree {
             }
         }
 
+        // Driver method for recurseInsert so that the method can be called with only a key.
         public void insert(int _key) {
-            // TODO: Add updates to height and balance factor and rotation stuff.
-
-            Node insertNode = new Node(_key, parent);
+            Node insertNode = new Node(_key);
             recurseInsert(root, insertNode);
         }
 
+        // Recursive method to insert a new node into the AVL Tree
         private void recurseInsert(Node x, Node z) {
             if (x.key < z.key) {
                 if (x.rightChild != null) {
@@ -199,67 +202,44 @@ public class AVLTree {
     }
 
     public AVLTree(int _key) {
-        root = new Node(_key, null);
+        root = new Node(_key);
     }
 
-    public Node getRoot() {
-        return root;
-    }
-
-    public int getKey(Node x) {
-        return x.key;
-    }
-
+    // Driver method for insert so that the method can be called without a given node.
     public void insert(int _key) {
         if (root != null) {
             root.insert(_key);
         }
         else {
-            root = new Node(_key, null);
+            root = new Node(_key);
         }
     }
 
+    // Driver method for recurseSearch so that the method can be called in the main method.
     public int search(int _key) {
         return recurseSearch(root, _key).key;
     }
 
-    public Node recurseSearch(Node x, int k) {
+    // Searches for the node with the key _key in the tree rooted at x.
+    public Node recurseSearch(Node x, int _key) {
         if (x == null) {
             return null;
         }
-        if (x.key == k) {
+        if (x.key == _key) {
             return x;
         }
-        if (x.key > k) {
-            return recurseSearch(x.leftChild, k);
+        if (x.key > _key) {
+            return recurseSearch(x.leftChild, _key);
         }
-        return recurseSearch(x.rightChild, k);
+        return recurseSearch(x.rightChild, _key);
     }
 
-    public int successor(int _key) {
-        return successor(recurseSearch(root, _key)).key;
-    }
-
-    public Node successor(Node x) {
-        if (x.rightChild != null) {
-            return miniumum(x.rightChild);
-        }
-
-        Node y = x.parent;
-
-        while (y != null && x == y.rightChild) {
-            x = y;
-            y = y.parent;
-        }
-
-        return y;
-        //return new Node(_key, null);
-    }
-
+    // Driver method for recurseSelect so that the method can be called from the main method.
     public int select(int i) {
         return recurseSelect(root, i).key;
     }
 
+    // Returns the node that is the ith element from the minimum in the tree.
     private Node recurseSelect(Node x, int i) {
         if (x == null) {
             //throw exception or just give statement?
@@ -278,18 +258,20 @@ public class AVLTree {
             return recurseSelect(x.rightChild, i - 1 - leftChildSize);
     }
 
+    // Driver method for recurseRank so that the method can be called from the main method without a node.
     public int rank(int _key) {
         return recurseRank(root, _key);
     }
 
-    private int recurseRank(Node x, int k) {
+    // Returns the "rank" of a node with the key _key.
+    private int recurseRank(Node x, int _key) {
         if (x == null) {
             return 0;
         }
-        if (k < x.key) {
-            return recurseRank(x.leftChild, k);
+        if (_key < x.key) {
+            return recurseRank(x.leftChild, _key);
         }
-        if (k == x.key) {
+        if (_key == x.key) {
             if (x.leftChild != null) {
                 return x.leftChild.size + 1;
             }
@@ -301,13 +283,37 @@ public class AVLTree {
         if (x.leftChild != null) {
             leftSize = x.leftChild.size;
         }
-        return leftSize + 1 + recurseRank(x.rightChild,k);
+        return leftSize + 1 + recurseRank(x.rightChild,_key);
     }
 
+    // Driver method for successor so that the method can be called in the main method.
+    public int successor(int _key) {
+        return successor(recurseSearch(root, _key)).key;
+    }
+
+    // Returns the successor of the node x.
+    public Node successor(Node x) {
+        if (x.rightChild != null) {
+            return minimum(x.rightChild);
+        }
+
+        Node y = x.parent;
+
+        while (y != null && x == y.rightChild) {
+            x = y;
+            y = y.parent;
+        }
+
+        return y;
+        //return new Node(_key, null);
+    }
+
+    // Driver method for predecessor so that the method can be called in the main method.
     public int predecessor(int _key) {
         return predecessor(recurseSearch(root, _key)).key;
     }
 
+    // Returns the predecessor of the node x.
     public Node predecessor(Node x) {
         // This is what he had in the slides?
         if (x.leftChild != null) {
@@ -322,14 +328,28 @@ public class AVLTree {
         return y;
     }
 
-    public Node miniumum(Node x) {
+    // Driver method for minimum so that the method can be called without a given node from the main method.
+    // If no elements are in tree returns -1
+    public int minimum() {
+        return (root != null) ? minimum(root).key : -1;
+    }
+
+    // Returns the node with the minimum key in the tree.
+    public Node minimum(Node x) {
         //go to leftmost child
         while (x.leftChild != null) {
             x = x.leftChild;
         }
         return x;
     }
+    
+    // Driver method for maximum so that the method can be called without a given node from the main method.
+    // If no elements are in the tree returns -1
+    public int maximum() {
+        return (root != null) ? maximum(root).key : -1;
+    }
 
+    // Returns the node with the maximum key in the tree.
     public Node maximum(Node x) {
         //go to rightmost child
         while (x.rightChild != null) {
@@ -338,14 +358,16 @@ public class AVLTree {
         return x;
     }
 
+    // Driver method for inOrder so that the method can be called from the main method without a given node.
     public String inOrder() {
         String value = inOrder(root);
         value = value.substring(0, value.length() - 2);
         return value;
     }
 
+    // Traverses the tree in order.
     public String inOrder(Node x) {
-        // visit left side, root, then right side
+        // Visit left side, root, then right side
         String retVal = "";
         if (x == null) {
             return "";
@@ -362,19 +384,5 @@ public class AVLTree {
         }
 
         return retVal;
-    }
-
-    public int height(Node x) {
-        //working on this
-        if (x == null)
-            return 0;
-        return x.height;
-    }
-
-    public int getbalanceFactor(Node x) {
-        //finds balance factor
-        if (x == null)
-            return 0;
-        return height(x.leftChild) - height(x.rightChild);
     }
 }
