@@ -1,3 +1,11 @@
+/*
+Raquel Hodgeson (rhodg14@lsu.edu, 89-399-5177)
+Seth Richard (sric111@lsu.edu, 89-053-2395)
+Programming Project 1
+CSC 3102 - Dr. Shah
+10/18/19
+ */
+
 public class AVLTree {
     private class Node {
         public int key, height, size, bf;
