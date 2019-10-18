@@ -6,8 +6,12 @@ import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
+        System.out.print("Enter the file you would like to process: ");
+        Scanner cin = new Scanner(System.in);
+        String filePath = cin.next();
+        long startTime = System.nanoTime();
         AVLTree A = new AVLTree();
-        try (Scanner fin = new Scanner(new File("AVLtree-input.txt"))) {
+        try (Scanner fin = new Scanner(new File(filePath))) {
             FileWriter write = new FileWriter(new File("output.txt"));
             Scanner sin;
             while (fin.hasNextLine()) {
@@ -25,33 +29,39 @@ public class MainClass {
                         A.insert(val);
                         break;
                     case "MI":
-                        str = String.format("%-8d%n", A.getKey(A.miniumum(A.getRoot())));
+                        str = A.minimum() + "\n";
                         break;
                     case "MA":
-                        str = String.format("%-8d%n", A.getKey(A.maximum(A.getRoot())));
+                        str = A.maximum() + "\n";
                         break;
                     case "PR":
-                        str = String.format("%-8d%n", A.predecessor(val));
+                        str = A.predecessor(val) + "\n";
+                        break;
+                    case "SE":
+                        str = A.select(val) + "\n";
                         break;
                     case "SR":
-                        str = String.format("%-8d%n", A.search(val));
+                        str = A.search(val) + "\n";
                         break;
                     case "SC":
-                        str = String.format("%-8d%n", A.successor(val));
+                        str = A.successor(val) + "\n";
                         break;
                     case "RA":
-                        str = String.format("%-8d%n", A.rank(val));
+                        str = A.rank(val) + "\n";
                         break;
                     case "TR":
-                        str = A.inOrder();
+                        str = A.inOrder() + "\n";
                         break;
                 }
                 write.write(str);
             }
+            long endTime = System.nanoTime();
+            long time = endTime - startTime;
+            write.write(time/1000 + " micro-sec");
             write.close();
         }
         catch (FileNotFoundException ex) {
-            System.out.println("There was no file found with the name AVLtree-input.txt");
+            System.out.println("There was no file found with that name.");
         } catch (IOException e) {
             e.printStackTrace();
         }
