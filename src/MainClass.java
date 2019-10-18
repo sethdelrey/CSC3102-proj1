@@ -1,6 +1,6 @@
 /*
+Seth Richard (sric111@lsu.edu)
 Raquel Hodgeson (rhodg14@lsu.edu, 89-399-5177)
-Seth Richard (sric111@lsu.edu, 89-053-2395)
 Programming Project 1
 CSC 3102 - Dr. Shah
 10/18/19
@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class MainClass {
+
+    //Method that reads a file and adds its contents to an AVL Tree
+    //while maintaining the binary and balance properties. It follows the commands of the input file, including
+    // search, select, rank, inOrder traversal, and finding min, max
+    //successor, and predecessor and prints it into a new output file.
     public static void main(String[] args) {
         System.out.print("Enter the file you would like to process: ");
         Scanner cin = new Scanner(System.in);
