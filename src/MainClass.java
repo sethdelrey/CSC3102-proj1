@@ -6,9 +6,12 @@ import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
+        System.out.print("Enter the file you would like to process: ");
+        Scanner cin = new Scanner(System.in);
+        String filePath = cin.next();
         long startTime = System.nanoTime();
         AVLTree A = new AVLTree();
-        try (Scanner fin = new Scanner(new File("AVLtree-input.txt"))) {
+        try (Scanner fin = new Scanner(new File(filePath))) {
             FileWriter write = new FileWriter(new File("output.txt"));
             Scanner sin;
             while (fin.hasNextLine()) {
@@ -58,7 +61,7 @@ public class MainClass {
             write.close();
         }
         catch (FileNotFoundException ex) {
-            System.out.println("There was no file found with the name AVLtree-input.txt");
+            System.out.println("There was no file found with that name.");
         } catch (IOException e) {
             e.printStackTrace();
         }
